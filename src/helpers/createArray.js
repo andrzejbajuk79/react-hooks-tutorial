@@ -1,1 +1,2 @@
-const createArray = (length) => [...Array(length)];
+import React, {useState} from 'react';
+export const createArray = (length) => [...Array(length)];

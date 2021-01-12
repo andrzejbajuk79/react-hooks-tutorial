@@ -1,34 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import './App.css';
-import {FaStar} from 'react-icons/fa';
+import Checked from './components/Checked';
+import Github from './components/Github';
 
-const createArray = (length) => [...Array(length)];
-const Star = ({selected = false, onSelect}) => {
-	console.log('selected', selected);
-	return <FaStar color={selected ? 'red' : 'grey'} onClick={onSelect} />;
-};
-const StarRates = ({totalStars}) => {
-	const [selectedStars, setSelectedStars] = useState(0);
-	return (
-		<>
-			{createArray(totalStars).map((n, i) => (
-				<Star
-					key={i}
-					selected={selectedStars > i}
-					onSelect={() => setSelectedStars(i + 1)}
-				/>
-			))}
-			<p>
-				{selectedStars} z {totalStars}
-			</p>
-		</>
-	);
-};
+import StarRating from './components/StarRating';
+
 function App() {
+	//co chcemy zeby sie stalo kiedy setNumber bedzie wywolany
+	//drugi argument to initial state = 0
+	const [number, setNumber] = useReducer(
+		(number, newNumber) => number + newNumber,
+		0
+	);
 	return (
-		<div className='App'>
-			<StarRates totalStars={4} />
-		</div>
+		<section>
+			<Checked />
+			<h1 onClick={() => setNumber(1)}>{number}</h1>
+			<StarRating totalStars={4} />
+			<Github />
+		</section>
 	);
 }
 
